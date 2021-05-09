@@ -1,0 +1,165 @@
+from tkinter import *
+from gpiozero import LED
+import RPi.GPIO
+RPi.GPIO.setmode(RPi.GPIO.BCM)
+import time
+
+root = Tk()
+root.title('Morse Code')
+root.geometry("500x450")
+
+# hardware
+red = LED(14)
+
+#Clear Function
+def clear():
+    #python text boxes start at 1.0 not 0
+    my_text.delete(1.0, END)
+
+#grab the text from the text box
+def get_text():
+    my_label.config(text=my_text.get(1.0, 1.24))
+    
+my_text = Text(root, width=24, height=1, font =('Helvetika', 16))
+my_text.pack(pady=20)
+
+def dot():
+    red.on()
+    time.sleep(1)
+    red.off()
+    time.sleep(2)
+    
+def dash():
+    red.on()
+    time.sleep(2)
+    red.off()
+    time.sleep(2)
+    
+def get_morse():
+    store_text = my_text.get(1.0, 1.25)
+    arr = store_text.split()
+    for letter in arr:
+        if (letter.lower() == 'a'):
+            dot()
+            dash()
+        if (letter.lower() == 'b'):
+            dash()
+            dot()
+            dot()
+            dot()
+        if (letter.lower() == 'c'):
+            dash()
+            dot()
+            dash()
+            dot()
+        if (letter.lower() == 'd'):
+            dash()
+            dot()
+            dot()
+        if (letter.lower() == 'e'):
+            dot()
+        if (letter.lower() == 'f'):
+            dot()
+            dot()
+            dash()
+            dot()
+        if (letter.lower() == 'g'):
+            dash()
+            dash()
+            dot()
+        if(letter.lower() == 'h'):
+            dot()
+            dot()
+            dot()
+            dot()
+        if(letter.lower() == 'i'):
+            dot()
+            dot()
+        if(letter.lower() == 'j'):
+            dot()
+            dash()
+            dash()
+        if(letter.lower() == 'k'):
+            dash()
+            dot()
+            dash()
+        if(letter.lower() == 'l'):
+            dot()
+            dash()
+            dot()
+            dot()
+        if(letter.lower() == 'm'):
+            dash()
+            dash()
+        if(letter.lower() == 'n'):
+            dash()
+            dot()
+        if(letter.lower() == 'o'):
+            dash()
+            dash()
+            dash()
+        if(letter.lower() == 'p'):
+            dot()
+            dash()
+            dash()
+            dot()
+        if(letter.lower() == 'q'):
+            dash()
+            dash()
+            dot()
+            dash()
+        if(letter.lower() == 'r'):
+            dot()
+            dash()
+            dot()
+        if(letter.lower() == 's'):
+            dot()
+            dot()
+            dot()
+        if(letter.lower() == 't'):
+            dash()
+        if(letter.lower() == 'u'):
+            dot()
+            dot()
+            dash()
+        if(letter.lower() == 'v'):
+            dot()
+            dot()
+            dot()
+            dash()
+        if(letter.lower() == 'w'):
+            dot()
+            dash()
+            dash()
+        if(letter.lower() == 'x'):
+            dash()
+            dot()
+            dot()
+            dash()
+        if(letter.lower() == 'y'):
+            dash()
+            dot()
+            dash()
+            dash()
+        if(letter.lower() == 'z'):
+            dash()
+            dash()
+            dot()
+            dot()
+
+button_frame = Frame(root)
+button_frame.pack()
+
+clear_button = Button(button_frame, text="Clear Screen", command = clear)
+clear_button.grid(row=0, column=0)
+
+get_text_button = Button(button_frame, text = "Get Text", command = get_text)
+get_text_button.grid(row=0, column=1, padx=20)
+
+morse_button = Button(button_frame, text = "Morse", command = get_morse)
+morse_button.grid(row=0, column=2)
+
+my_label = Label(root, text='input with space. e.g (a b c)')
+my_label.pack(pady=20)
+
+root.mainloop()
